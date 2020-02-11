@@ -5,6 +5,11 @@
     <title>Hello, World!</title>
     <meta name="description" content="Hello, WebVR! • A-Frame">
     <script src="aframe.min.js"></script>
+    <script src="aframe-curve-component.min.js"></script>
+    <script src="aframe-alongpath-component.min.js"></script>
+    
+    
+    
   </head>
   <body>
       
@@ -39,6 +44,33 @@
       <a-image position="-2.94 1 0" src="#graph1" rotation="0 90 0" color="#CCC" width=1.55 height=0.9 ></a-image>
 
       <a-image mixin="toggleAnimation" mixin="image" src="#ring" scale="1.2 1.2 1.2" position="0 1 .01" animation="delay: 600"></a-image>
+    
+
+
+    <!-- camera track -->
+    <a-curve id="blimp-track" type="QuadraticBezier" curve="type:QuadraticBezier;closed:true" position="0 0 0" rotation="0 0 0" scale="1 1 1" visible="true">
+      <a-curve-point id="checkpoint1" position="4 1.6 -4" rotation="0 0 0" scale="1 1 1" visible="true" curve-point="" geometry="primitive:sphere; radius:0.1" material="color:#0ff" ></a-curve-point>
+      <a-curve-point id="checkpoint2" position="4 1.6 4" rotation="0 0 0" scale="1 1 1" visible="true" curve-point="" geometry="primitive:sphere; radius:0.1" material="color:#0ff" ></a-curve-point>
+      <a-curve-point id="checkpoint3" position="-4 1.6 4" rotation="0 0 0" scale="1 1 1" visible="true" curve-point="" geometry="primitive:sphere; radius:0.1" material="color:#0ff" ></a-curve-point>
+      <a-curve-point id="checkpoint4" position="-4 1.6 -4" rotation="0 0 0" scale="1 1 1" visible="true" curve-point="" geometry="primitive:sphere; radius:0.1" material="color:#0ff" ></a-curve-point>
+      <a-curve-point id="checkpoint4" position="-2 1.6 -2" rotation="0 0 0" scale="1 1 1" visible="true" curve-point="" geometry="primitive:sphere; radius:0.1" material="color:#0ff" ></a-curve-point>
+
+    </a-curve>
+
+    <a-draw-curve curveref="#blimp-track" material="shader: line; color: blue;" position="" rotation="" scale="" visible="" draw-curve=""></a-draw-curve>
+
+    <!-- First person camera -->
+    <a-entity alongpath="curve:#blimp-track;loop:true;dur:60000;rotate:false" position="0 1.6 0" rotation="0 0 0" scale="1 1 1" visible="true">
+
+      <a-entity position="0 0 0" rotation="0 0.748 0" scale="1 1 1" visible="true">
+        <a-entity id="fps-camera" camera="active:true" position="0 -0.47 0" rotation="-4 -45 0" mouse-cursor="" look-controls="" scale="1 1 1" visible="true"></a-entity>
+        <a-animation attribute="rotation" from="0 180 0" to="0 -180 0" dur="60000" fill="forwards" repeat="indefinite" easing="linear">
+        </a-animation>
+      </a-entity>
+
+
+    </a-entity>
+    
      
     </a-scene>
     
